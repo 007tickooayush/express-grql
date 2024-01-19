@@ -1,3 +1,5 @@
+import { Client } from '../models/Client';
+import { Project } from '../models/Project';
 import { projects, clients } from '../sampleData';
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString, } from 'graphql';
 
@@ -35,27 +37,35 @@ export const RootQuery = new GraphQLObjectType({
         projects: {
             type: new GraphQLList(ProjectType),
             resolve(parent, args) {
-                return projects;
+                // return projects;
+                // realtime data
+                return Project.find();
             }
         },
         project: {
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve: (parent, args) => {
-                return projects.find(project => project.id === args.id);
+                // return projects.find(project => project.id === args.id);
+                // realtime data
+                return Project.findById(args.id);
             }
         },
         clients: {
             type: new GraphQLList(ClientType),
             resolve(parent, args) {
-                return clients;
+                // return clients;
+                // realtime data
+                return Client.find();
             }
         },
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
             resolve: (parent, args) => {
-                return clients.find(client => client.id === args.id);
+                // return clients.find(client => client.id === args.id);
+                // realtime data
+                return Client.findById(parent.clientId);
             }
         }
     }),

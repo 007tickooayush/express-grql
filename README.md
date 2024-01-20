@@ -27,6 +27,26 @@ To use the project, follow these instructions:
 2. Make requests to the GraphQL endpoint to interact with the GraphQL part of the project.
 3. Refer to the project documentation for detailed information on the available endpoints and request formats.
 
+- ### GraphQL Client read example:
+```
+query {
+  clients{
+    name
+  }
+}
+```
+
+- ### GraphQL Client insert example:
+```
+mutation{
+  addClient(name: "Ayush Tickoo", email: "ayush.tickoo@reazon.com", phone: "9914188982") {
+    name,
+    phone,
+    id
+  }
+}
+```
+
 ## Contributing
 Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 

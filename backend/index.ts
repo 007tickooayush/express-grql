@@ -7,7 +7,7 @@ import { GraphQLSchema } from 'graphql';
 import { connectMongo } from './config/db';
 
 require('dotenv').config();
-const PORT = process.env.PORT || 5000
+const PORT_ = process.env.PORT || 5000;
 
 app.use('/graphql', graphqlHTTP({
     schema,
@@ -17,6 +17,6 @@ app.use('/graphql', graphqlHTTP({
 
 connectMongo();
 
-app.listen(PORT, () => {
-    console.log('SERVER RUNNING ON PORT: ', PORT);
+app.listen(PORT_, () => {
+    console.log('SERVER RUNNING ON PORT: ', PORT_);
 })

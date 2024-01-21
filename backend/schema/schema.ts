@@ -65,7 +65,7 @@ export const RootQuery = new GraphQLObjectType({
             resolve: (parent, args) => {
                 // return clients.find(client => client.id === args.id);
                 // realtime data
-                return Client.findById(parent.clientId);
+                return Client.findById(args.id);
             }
         }
     }),

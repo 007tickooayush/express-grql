@@ -47,6 +47,63 @@ mutation{
 }
 ```
 
+- ### GraphQL examples:
+```
+mutation{
+  addClient(name: "Mike Wazowski", email:"mike.wazowski@monster.inc", phone:"6969696970"){
+    id
+  }
+}
+
+mutation{
+  addProject(
+    name:"ScreamMeasure",
+    description:"Measuring the sound intensity of a scream",
+    status: progress,
+    clientId:"65aca787046afcc1687ae5b8"
+  ){
+    id,
+    name
+  }
+}
+
+mutation{
+  updateProject(
+    id : "65acaad61232c850ab791d3c"
+    status: completed
+  ) {
+    name
+    status
+  }
+}
+
+query{
+  projects{
+    id
+    name
+    status
+    client{
+      name
+      email
+    }
+  }
+}
+
+query{
+  clients {
+    id
+    name
+  }
+}
+
+query{
+  client(id:"65aaaea49f2831bd71bc304d"){
+    name
+    email
+  }
+}
+```
+
 ## Contributing
 Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 

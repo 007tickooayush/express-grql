@@ -3,6 +3,7 @@ import Header from './components/Header'
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Clients from './components/Clients';
+import AddClientModal from './components/AddClientModal';
 
 
 // handling cache warning
@@ -32,12 +33,12 @@ const client = new ApolloClient({
 });
 
 function App() {
-    const [count, setCount] = useState(0)
 
     return (
         <ApolloProvider client={client}>
             <Header />
             <div className='container'>
+                <AddClientModal />
                 <Clients />
             </div>
         </ApolloProvider>

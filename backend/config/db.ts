@@ -5,7 +5,7 @@ export const  connectMongo = async () => {
 
     // console.log(`Mongo Connected: ${}`)
     
-    mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/').then(conn => {
+    mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/gql').then(conn => {
         console.log(colors.cyan.underline(`Mongo DB Connected: ${conn.connection.host}`));
     }).catch((err) => {
         console.error(colors.red.bold(`Mongo DB Error occured: ${err}`))

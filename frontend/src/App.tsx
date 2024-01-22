@@ -2,12 +2,33 @@ import { useState } from 'react'
 import Header from './components/Header'
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import Clients from './components/Clients';
 
+
+// handling cache warning
+const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                clients: {
+                    merge(existing,incoming){
+                        return incoming;
+                    }
+                },
+                projects: {
+                    merge(existing,incoming){
+                        return incoming;
+                    }
+                },
+            }
+        }
+    }
+})
 
 const URL = 'http://localhost:5000/graphql';
 const client = new ApolloClient({
     uri: URL,
-    cache: new InMemoryCache()
+    cache,
 });
 
 function App() {
@@ -17,7 +38,7 @@ function App() {
         <ApolloProvider client={client}>
             <Header />
             <div className='container'>
-                <h1>Hello World</h1>
+                <Clients />
             </div>
         </ApolloProvider>
     )

@@ -4,3 +4,9 @@ export interface ClientRowType {
     phone: String,
     email: String
 }
+
+export interface ProjectCardType {
+    id:String,
+    name:String,
+    status:String
+}

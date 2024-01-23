@@ -4,6 +4,8 @@ import Header from './components/Header'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Clients from './components/Clients';
 import AddClientModal from './components/AddClientModal';
+import Projects from './components/Projects';
+import { BrowserRouter } from 'react-router-dom';
 
 
 // handling cache warning
@@ -36,11 +38,14 @@ function App() {
 
     return (
         <ApolloProvider client={client}>
-            <Header />
-            <div className='container'>
-                <AddClientModal />
-                <Clients />
-            </div>
+            <BrowserRouter>
+                <Header />
+                <div className='container'>
+                    <AddClientModal />
+                    <Projects />
+                    <Clients />
+                </div>
+            </BrowserRouter>
         </ApolloProvider>
     )
 }

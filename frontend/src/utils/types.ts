@@ -10,3 +10,10 @@ export interface ProjectCardType {
     name:String,
     status:String
 }
+
+export interface ClientInfoType {
+    id:String,
+    name:String,
+    phone:String,
+    email:String,
+}

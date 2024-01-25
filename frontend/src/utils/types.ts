@@ -17,3 +17,11 @@ export interface ClientInfoType {
     phone:String,
     email:String,
 }
+
+export interface ProjectType {
+    id:String,
+    name:String,
+    status:String,
+    description:String,
+    clientId:String
+}

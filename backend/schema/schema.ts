@@ -99,7 +99,19 @@ export const mutation = new GraphQLObjectType({
                 id: { type: GraphQLID }
             },
             resolve(parent, args) {
-                return Client.findByIdAndDelete(args.id);
+                // Project.find({clientId: args.id}).then((projects)=>{
+                //     projects.forEach(project => {
+                //         project.deleteOne();
+                //     })
+                // });
+
+                Project.deleteMany({clientId: args.id}).then((projects) => {
+                    console.log(projects)
+                }).catch(err => {
+                    console.error("Client & Project Deletion Error: ",err);
+                }).finally(() => {
+                    return Client.findByIdAndDelete(args.id);
+                });
             }
         },
         // Add a project

@@ -2,8 +2,8 @@ import React from 'react'
 import { ClientRowType } from '../utils/types';
 import { FaTrash } from 'react-icons/fa';
 import { useMutation } from '@apollo/client';
-import { DELETE_CLIENT } from '../mutations/clientMutations';
-import { GET_CLIENTS } from '../queries/clientQueries';
+import { DELETE_CLIENT } from '../mutations/clientMutations.ts';
+import { GET_CLIENTS } from '../queries/clientQueries.ts';
 
 type ClientRowProps = {
     key: number,

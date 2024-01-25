@@ -1,11 +1,13 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Header from './components/Header'
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import Clients from './components/Clients';
-import AddClientModal from './components/AddClientModal';
-import Projects from './components/Projects';
-import { BrowserRouter } from 'react-router-dom';
+// import Clients from './components/Clients';
+// import AddClientModal from './components/AddClientModal';
+// import Projects from './components/Projects';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 
 // handling cache warning
@@ -14,12 +16,12 @@ const cache = new InMemoryCache({
         Query: {
             fields: {
                 clients: {
-                    merge(existing,incoming){
+                    merge(existing, incoming) {
                         return incoming;
                     }
                 },
                 projects: {
-                    merge(existing,incoming){
+                    merge(existing, incoming) {
                         return incoming;
                     }
                 },
@@ -41,9 +43,10 @@ function App() {
             <BrowserRouter>
                 <Header />
                 <div className='container'>
-                    <AddClientModal />
-                    <Projects />
-                    <Clients />
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='*' element={<NotFound />} />
+                    </Routes>
                 </div>
             </BrowserRouter>
         </ApolloProvider>

@@ -1,5 +1,6 @@
 import express from 'express';
 import { Project } from '../schema/Project';
+import { validateContentType } from '../utils/utils';
 
 const projectRouter = express.Router();
 
@@ -14,13 +15,5 @@ projectRouter.get('/all', validateContentType,
         });
     }
 );
-
-function validateContentType(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (req.headers['content-type'] == 'application/json') {
-        next();
-    } else {
-        res.status(400).send(`Bad Request - content-type must be application/json`);
-    }
-}
 
 export default projectRouter;

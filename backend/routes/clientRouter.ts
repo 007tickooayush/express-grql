@@ -1,14 +1,45 @@
 import express from 'express';
+import { Client } from '../schema/Client';
+import { validateContentType } from '../utils/utils';
 
 const clientRouter = express.Router();
 
 // Define your routes here
-clientRouter.get('/all', (req, res, next) => {
-    if (req.headers['content-type'] == 'application/json') {
-        next();
+clientRouter.get('/all', validateContentType,
+    (req, res) => {
+        Client.find().then(clients => {
+            res.status(200).json({ data: clients });
+        }).catch(err => {
+            res.status(500).send({ message: `Error: ${err}` });
+        });
     }
-}, (req, res) => {
+);
 
-});
+clientRouter.post('/add', validateContentType,
+    (req, res) => {
+        const client = new Client({
+            name: req.body.name,
+            address: req.body.address,
+            phone: req.body.phone
+        });
+        client.save().then(client => {
+            res.status(200).json({ data: client });
+        }).catch(err => {
+            res.status(500).send({ message: `Error: ${err}` });
+        });
+    }
+);
+
+clientRouter.get('/delete/:id', validateContentType,
+    (req, res) => {
+        Client.findByIdAndDelete(req.params.id).then(client => {
+            res.status(200).json({ data: client });
+        }).catch(err => {
+            res.status(500).send({ message: `Error: ${err}` });
+        });
+    }
+);
+
+// clientRouter.put('/update/:id', validateContentType,
 
 export default clientRouter;

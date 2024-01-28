@@ -16,4 +16,53 @@ projectRouter.get('/all', validateContentType,
     }
 );
 
+projectRouter.post('/add', validateContentType,
+    (req, res) => {
+        const project = new Project({
+            name: req.body.name,
+            description: req.body.description,
+            clientId: req.body.clientId,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            status: req.body.status,
+            priority: req.body.priority,
+            tasks: req.body.tasks
+        });
+        project.save().then(project => {
+            res.status(200).json({ data: project });
+        }).catch(err => {
+            res.status(500).send({ message: `Internal Server Error - ${err}` });
+        });
+    }
+);
+
+projectRouter.get('/delete/:id', validateContentType,
+    (req, res) => {
+        Project.findByIdAndDelete(req.params.id).then(project => {
+            res.status(200).json({ data: project });
+        }).catch(err => {
+            res.status(500).send({ message: `Internal Server Error - ${err}` });
+        });
+    }
+);
+
+projectRouter.put('/update/:id', validateContentType,
+    (req, res) => {
+        Project.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            description: req.body.description,
+            clientId: req.body.clientId,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            status: req.body.status,
+            priority: req.body.priority,
+            tasks: req.body.tasks
+        }).then(project => {
+            res.status(200).json({ data: project });
+        }).catch(err => {
+            res.status(500).send({ message: `Internal Server Error - ${err}` });
+        });
+    }
+);
+
 export default projectRouter;

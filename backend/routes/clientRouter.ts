@@ -40,6 +40,21 @@ clientRouter.get('/delete/:id', validateContentType,
     }
 );
 
-// clientRouter.put('/update/:id', validateContentType,
+clientRouter.put('/update/:id', validateContentType,
+    (req, res) => {
+        Client.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            address: req.body.address,
+            phone: req.body.phone
+        }).then(client => {
+            res.status(200).json({ data: client });
+        }).catch(err => {
+            res.status(500).send({ message: `Error: ${err}` });
+        });
+    }
+);
+
+// delete the projects linked to the client
+
 
 export default clientRouter;

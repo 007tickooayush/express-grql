@@ -22,11 +22,6 @@ projectRouter.post('/add', validateContentType,
             name: req.body.name,
             description: req.body.description,
             clientId: req.body.clientId,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
-            status: req.body.status,
-            priority: req.body.priority,
-            tasks: req.body.tasks
         });
         project.save().then(project => {
             res.status(200).json({ data: project });
@@ -52,11 +47,7 @@ projectRouter.put('/update/:id', validateContentType,
             name: req.body.name,
             description: req.body.description,
             clientId: req.body.clientId,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
             status: req.body.status,
-            priority: req.body.priority,
-            tasks: req.body.tasks
         }).then(project => {
             res.status(200).json({ data: project });
         }).catch(err => {

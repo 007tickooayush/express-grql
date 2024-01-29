@@ -46,9 +46,8 @@ projectRouter.put('/update/:id', validateContentType,
         Project.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
             description: req.body.description,
-            clientId: req.body.clientId,
             status: req.body.status,
-        }).then(project => {
+        },{new:true}).then(project => {
             res.status(200).json({ data: project });
         }).catch(err => {
             res.status(500).send({ message: `Internal Server Error - ${err}` });

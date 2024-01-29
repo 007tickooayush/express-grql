@@ -33,14 +33,18 @@ clientRouter.post('/add', validateContentType,
 
 clientRouter.get('/delete/:id', validateContentType,
     (req, res) => {
+        //// console.log('req.params.id :>> ', req.params.id);
         Client.findByIdAndDelete(req.params.id).then(client => {
+            if(client){
+                Project.deleteMany({ clientId: req.params.id }).then((projects) => {
+                    res.status(200).json({ data: client, project: { deleteCount: projects.deletedCount, acknowledged: projects.acknowledged } });
+                }).catch((err) => {
+                    res.status(500).send({ message: `Error: ${err}` });
+                })
+            }else{
+                res.status(404).send({ message: `Client not present ` });    
+            }
 
-
-            Project.deleteMany({ clientId: req.params.id }).then((projects) => {
-                res.status(200).json({ data: client, project: { deleteCount: projects.deletedCount, acknowledged: projects.acknowledged } });
-            }).catch((err) => {
-                res.status(500).send({ message: `Error: ${err}` });
-            })
         }).catch(err => {
             res.status(500).send({ message: `Error: ${err}` });
         });

@@ -1,6 +1,7 @@
 import express from 'express';
 import { Client } from '../schema/Client';
 import { validateContentType } from '../utils/utils';
+import { Project } from '../schema/Project';
 
 const clientRouter = express.Router();
 
@@ -19,7 +20,7 @@ clientRouter.post('/add', validateContentType,
     (req, res) => {
         const client = new Client({
             name: req.body.name,
-            address: req.body.address,
+            email: req.body.email,
             phone: req.body.phone
         });
         client.save().then(client => {
@@ -33,7 +34,13 @@ clientRouter.post('/add', validateContentType,
 clientRouter.get('/delete/:id', validateContentType,
     (req, res) => {
         Client.findByIdAndDelete(req.params.id).then(client => {
-            res.status(200).json({ data: client });
+
+
+            Project.deleteMany({ clientId: req.params.id }).then((projects) => {
+                res.status(200).json({ data: client, project: { deleteCount: projects.deletedCount, acknowledged: projects.acknowledged } });
+            }).catch((err) => {
+                res.status(500).send({ message: `Error: ${err}` });
+            })
         }).catch(err => {
             res.status(500).send({ message: `Error: ${err}` });
         });
@@ -44,7 +51,7 @@ clientRouter.put('/update/:id', validateContentType,
     (req, res) => {
         Client.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
-            address: req.body.address,
+            email: req.body.email,
             phone: req.body.phone
         }).then(client => {
             res.status(200).json({ data: client });

@@ -14,7 +14,7 @@ import Project from './pages/Project';
 
 // handling cache warning
 
-const URL = 'http://localhost:5000/graphql';
+const URL = 'http://localhost:6000/';
 
 function App() {
 
